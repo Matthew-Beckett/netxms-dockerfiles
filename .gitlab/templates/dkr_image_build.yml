@@ -1,6 +1,5 @@
 .image_build:
   image: docker:latest
-  stage: image_build
   services:
     - docker:dind
   variables:
