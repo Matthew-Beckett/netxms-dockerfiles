@@ -2,14 +2,14 @@
 
 if [ ! -e "/data/.initialized" ];
 then
-	echo "Generating NetXMS server config file /etc/netxmsd.conf"
-	echo -e "Logfile=/data/netxms.log\nDBDriver=sqlite.ddr\nDBName=/data/netxms.db\n" >/etc/netxmsd.conf
-	echo "$NETXMS_CONFIG" >> /etc/netxmsd.conf
+	echo "Generating NetXMS server config file /usr/etc/netxmsd.conf"
+	echo -e "Logfile=/data/netxms.log\nDBDriver=sqlite.ddr\nDBName=/data/netxms.db\n" >/usr/etc/netxmsd.conf
+	echo "$NETXMS_CONFIG" >> /usr/etc/netxmsd.conf
 
 	echo "Initializing NetXMS SQLLite database"
 	nxdbmgr init /usr/share/netxms/sql/dbinit_sqlite.sql
 
-	echo -e "[supervisord]\nnodaemon=true\n[program:netxms-server]\ncommand=/usr/bin/netxmsd -q\n" >/etc/supervisor/conf.d/supervisord.conf
+	echo -e "[supervisord]\nnodaemon=true\n[program:netxms-server]\ncommand=/usr/bin/netxmsd -q -c /usr/etc/netxmsd.conf\n" >/etc/supervisor/conf.d/supervisord.conf
 
 	[ "$NETXMS_STARTAGENT" -gt 0 ] && echo -e "[program:netxms-nxagent]\ncommand=/nxagent.sh\n" >>/etc/supervisor/conf.d/supervisord.conf
 
