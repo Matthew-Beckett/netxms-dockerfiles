@@ -9,9 +9,9 @@ then
 	echo "Initializing NetXMS SQLLite database"
 	nxdbmgr init /usr/share/netxms/sql/dbinit_sqlite.sql
 
-	echo -e "[supervisord]\nnodaemon=true\n[program:netxms-server]\ncommand=/usr/bin/netxmsd -q -c /usr/etc/netxmsd.conf\n" >/etc/supervisor/conf.d/supervisord.conf
+	echo -e "[supervisord]\nnodaemon=true\n[program:netxms-server]\ncommand=/usr/bin/netxmsd -q -c /usr/etc/netxmsd.conf\n" >/usr/etc/supervisord.conf
 
-	[ "$NETXMS_STARTAGENT" -gt 0 ] && echo -e "[program:netxms-nxagent]\ncommand=/nxagent.sh\n" >>/etc/supervisor/conf.d/supervisord.conf
+	[ "$NETXMS_STARTAGENT" -gt 0 ] && echo -e "[program:netxms-nxagent]\ncommand=/nxagent.sh\n" >>/usr/etc/supervisord.conf
 
 	touch /data/.initialized
 fi
@@ -24,5 +24,5 @@ then
 	echo "Y"|nxdbmgr unlock
 fi
 
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+exec /usr/bin/supervisord -c /usr/etc/supervisord.conf
 
