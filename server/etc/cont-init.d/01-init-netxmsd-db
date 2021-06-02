@@ -4,13 +4,13 @@ if [ ! -e "/data/.initialized" ];
 then
 	echo "01-init-netxmsd-db - Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
 	mkdir -p /opt/netxmsd
-	echo -e "Logfile=/data/netxms.log\n" >> /opt/netxmsd/netxmsd.conf
+	echo -e "Logfile=/data/netxms.log" >> /opt/netxmsd/netxmsd.conf
     
     if [ -v "$NETXMS_DB_DRIVER" ];
     then
-        echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr" >> /opt/netxmsd/netxmsd.conf
     else
-        echo -e "DBDriver=sqlite.ddr\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBDriver=sqlite.ddr" >> /opt/netxmsd/netxmsd.conf
         export NETXMS_DB_DRIVER="sqlite"
     fi
     
