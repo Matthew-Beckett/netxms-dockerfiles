@@ -11,23 +11,31 @@ then
         echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr\n" >> /opt/netxmsd/netxmsd.conf
     else
         echo -e "DBDriver=sqlite.ddr\n" >> /opt/netxmsd/netxmsd.conf
+        NETXMS_DB_DRIVER="sqlite"
     fi
     
     if [ -v "$NETXMS_DB_NAME" ];
     then
-        echo -e "DBName=${NETXMS_DB_NAME}\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBName=${NETXMS_DB_NAME}" >> /opt/netxmsd/netxmsd.conf
     else
-        echo -e "DBName=/data/netxms.db\n" >> /opt/netxmsd/netxmsd.conf
+        if [ $NETXMS_DB_DRIVER == "sqlite" ];
+        then
+            echo -e "DBName=/data/netxms.db" >> /opt/netxmsd/netxmsd.conf
+            NETXMS_DB_NAME="/data/netxms.db"
+        else
+            echo -e "DBName=netxms" >> /opt/netxmsd/netxmsd.conf
+            NETXMS_DB_NAME="netxms"
+        fi
     fi
 
     if [ -v "$NETXMS_DB_SERVER" ];
     then
-        echo -e "DBServer=${NETXMS_DB_SERVER}\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBServer=${NETXMS_DB_SERVER}" >> /opt/netxmsd/netxmsd.conf
     fi
 
     if [ -v "$NETXMS_DB_LOGIN" ];
     then
-        echo -e "DBLogin=${NETXMS_DB_LOGIN}\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBLogin=${NETXMS_DB_LOGIN}" >> /opt/netxmsd/netxmsd.conf
     fi
 
     if [ -v "$NETXMS_DB_PASSWORD" ];
@@ -38,6 +46,14 @@ then
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
 
 	echo "Initializing NetXMS database"
+    if [ NETXMS_DB_DRIVER == "sqlite" ];
+    then
+        if [ -e $NETXMS_DB_NAME ];
+        then
+        	echo "Unlocking database"
+            echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
+        fi
+    fi
 	nxdbmgr -c /opt/netxmsd/netxmsd.conf init
 
 	touch /data/.initialized
@@ -48,5 +64,5 @@ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4
 if [ -n "$NETXMS_UNLOCKONSTARTUP" ];
 then
 	echo "Unlocking database"
-	echo "Y"|nxdbmgr unlock
+	echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
 fi
