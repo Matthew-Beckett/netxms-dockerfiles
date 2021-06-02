@@ -2,7 +2,7 @@
 
 if [ ! -e "/data/.initialized" ];
 then
-	echo "Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
+	echo "01-init-netxmsd-db - Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
 	mkdir -p /opt/netxmsd
 	echo -e "Logfile=/data/netxms.log\n" >> /opt/netxmsd/netxmsd.conf
     
@@ -45,15 +45,16 @@ then
 
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
 
-	echo "Initializing NetXMS database"
     if [ $NETXMS_DB_DRIVER == "sqlite" ];
     then
+        echo "Checking for existing SQLite database and unlocking"
         if [ -e $NETXMS_DB_NAME ];
         then
         	echo "Unlocking database"
             echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
         fi
     fi
+    echo "Initialising the database"
 	nxdbmgr -c /opt/netxmsd/netxmsd.conf init
 
 	touch /data/.initialized
