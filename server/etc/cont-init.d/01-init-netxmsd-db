@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ! -e "/data/.initialized" ];
+then
+	echo "Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
+	mkdir -p /opt/netxmsd
+	echo -e "Logfile=/data/netxms.log\nDBDriver=sqlite.ddr\nDBName=/data/netxms.db\n" >/opt/netxmsd/netxmsd.conf
+	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
+
+	echo "Initializing NetXMS SQLLite database"
+	nxdbmgr -c /opt/netxmsd/netxmsd.conf init
+
+	touch /data/.initialized
+fi
+
+# Fix SMS kannel Drv
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4
+if [ -n "$NETXMS_UNLOCKONSTARTUP" ];
+then
+	echo "Unlocking database"
+	echo "Y"|nxdbmgr unlock
+fi

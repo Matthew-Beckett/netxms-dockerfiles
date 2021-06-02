@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "$NXAGENT_CONFIG" ] && echo -e "$NXAGENT_CONFIG" >/etc/nxagentd.conf
+[ -n "$NXAGENT_CONFIG" ] && echo -e "$NXAGENT_CONFIG" >/opt/nxagentd/nxagentd.conf
 
 ARGS="-f"
 [ -n "$NXAGENT_REGISTERSERVER" ] && ARGS="$ARGS -r $NXAGENT_REGISTERSERVER"
@@ -8,4 +8,4 @@ ARGS="-f"
 [ -n "$NXAGENT_LOGLEVEL" ] && ARGS="$ARGS -D $NXAGENT_LOGLEVEL"
 [ -n "$NXAGENT_PLATFORMSUFFIX" ] && ARGS="$ARGS -P $NXAGENT_PLATFORMSUFFIX"
 
-exec nxagentd $ARGS
+exec /usr/bin/nxagentd -c /opt/nxagentd/nxagentd.conf $ARGS
