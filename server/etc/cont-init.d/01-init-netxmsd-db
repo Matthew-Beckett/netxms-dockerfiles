@@ -11,7 +11,7 @@ then
         echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr\n" >> /opt/netxmsd/netxmsd.conf
     else
         echo -e "DBDriver=sqlite.ddr\n" >> /opt/netxmsd/netxmsd.conf
-        NETXMS_DB_DRIVER="sqlite"
+        export NETXMS_DB_DRIVER="sqlite"
     fi
     
     if [ -v "$NETXMS_DB_NAME" ];
@@ -21,10 +21,10 @@ then
         if [ $NETXMS_DB_DRIVER == "sqlite" ];
         then
             echo -e "DBName=/data/netxms.db" >> /opt/netxmsd/netxmsd.conf
-            NETXMS_DB_NAME="/data/netxms.db"
+            export NETXMS_DB_NAME="/data/netxms.db"
         else
             echo -e "DBName=netxms" >> /opt/netxmsd/netxmsd.conf
-            NETXMS_DB_NAME="netxms"
+            export NETXMS_DB_NAME="netxms"
         fi
     fi
 
@@ -46,7 +46,7 @@ then
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
 
 	echo "Initializing NetXMS database"
-    if [ NETXMS_DB_DRIVER == "sqlite" ];
+    if [ $NETXMS_DB_DRIVER == "sqlite" ];
     then
         if [ -e $NETXMS_DB_NAME ];
         then
