@@ -1,5 +1,5 @@
-#!/usr/bin/execlineb -P
-[ -n "$NXAGENT_CONFIG" ] && echo -e "$NXAGENT_CONFIG" >/opt/nxagentd/nxagentd.conf
+#!/bin/sh
+[ -n "$NXAGENT_CONFIG" ] && echo -e "$NXAGENT_CONFIG" > /opt/nxagentd/nxagentd.conf
 
 ARGS="-f"
 [ -n "$NXAGENT_REGISTERSERVER" ] && ARGS="$ARGS -r $NXAGENT_REGISTERSERVER"

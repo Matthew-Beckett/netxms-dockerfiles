@@ -18,10 +18,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     echo "deb http://packages.netxms.org/debian/ buster main" > /etc/apt/sources.list.d/netxms.list && \
     apt-get update && apt-get -y install netxms-base="${MAJOR_VERSION}.${MINOR_VERSION}-1" netxms-server="${MAJOR_VERSION}.${MINOR_VERSION}-1" netxms-agent="${MAJOR_VERSION}.${MINOR_VERSION}-1" netxms-dbdrv-sqlite3="${MAJOR_VERSION}.${MINOR_VERSION}-1" && apt-get clean
 
-COPY server/nxagent.sh /
 COPY server/etc /etc
 COPY server/opt /opt
-
-RUN  chmod 755 /nxagent.sh
 
 ENTRYPOINT ["/init"]

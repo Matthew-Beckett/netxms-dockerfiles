@@ -4,35 +4,35 @@ if [ ! -e "/data/.initialized" ];
 then
 	echo "Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
 	mkdir -p /opt/netxmsd
-	echo -e "Logfile=/data/netxms.log\n" >/opt/netxmsd/netxmsd.conf
+	echo -e "Logfile=/data/netxms.log\n" >> /opt/netxmsd/netxmsd.conf
     
-    if [ -n "$NETXMS_DB_DRIVER" ];
+    if [ -v "$NETXMS_DB_DRIVER" ];
     then
-        echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr\n" >> /opt/netxmsd/netxmsd.conf
     else
-        echo -e "DBDriver=sqlite.ddr\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBDriver=sqlite.ddr\n" >> /opt/netxmsd/netxmsd.conf
     fi
     
-    if [ -n "$NETXMS_DB_NAME" ];
+    if [ -v "$NETXMS_DB_NAME" ];
     then
-        echo -e "DBName=${NETXMS_DB_NAME}.ddr\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBName=${NETXMS_DB_NAME}\n" >> /opt/netxmsd/netxmsd.conf
     else
-        echo -e "DBName=/data/netxms.db\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBName=/data/netxms.db\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
-    if [ -n "$NETXMS_DB_SERVER" ];
+    if [ -v "$NETXMS_DB_SERVER" ];
     then
-        echo -e "DBServer=${NETXMS_DB_SERVER}\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBServer=${NETXMS_DB_SERVER}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
-    if [ -n "$NETXMS_DB_LOGIN" ];
+    if [ -v "$NETXMS_DB_LOGIN" ];
     then
-        echo -e "DBLogin=${NETXMS_DB_LOGIN}\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBLogin=${NETXMS_DB_LOGIN}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
-    if [ -n "$NETXMS_DB_PASSWORD" ];
+    if [ -v "$NETXMS_DB_PASSWORD" ];
     then
-        echo -e "DBPasssword=${NETXMS_DB_PASSWORD}\n" >/opt/netxmsd/netxmsd.conf
+        echo -e "DBPasssword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
