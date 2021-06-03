@@ -3,10 +3,15 @@ if [ ! -e "/data/.initialized" ];
 then
     if [ ! -z $NETXMS_GENERATE_SELF_SIGNED ];
     then
+        echo -e "Generating Root CA key"
         openssl genrsa -out /opt/netxmsd/rootCA.key 2048
-        openssl req -x509 -new -key /tmp/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt
+        echo -e "Generating Root CA"
+        openssl req -x509 -new -key /opt/netxmsd/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt
+        echo -e "Generating NetXMS Server key"
         openssl genrsa -out /opt/netxmsd/server.key 2048
+        echo -e "Generating NetXMS Server CSR"
         openssl req -new -key /opt/netxmsd/server.key -out /tmp/server.csr -config /opt/openssl/openssl-default.conf
+        echo -e "Signing NetXMS Server certificate"
         openssl x509 -req -in /tmp/server.csr -CA /opt/netxmsd/rootCA.crt -CAkey /opt/netxmsd/rootCA.key -CAcreateserial -out /opt/netxmsd/server.crt
 
         echo -e "TrustedCertificate=/opt/netxmsd/rootCA.crt" >> /opt/netxmsd/netxmsd.conf
