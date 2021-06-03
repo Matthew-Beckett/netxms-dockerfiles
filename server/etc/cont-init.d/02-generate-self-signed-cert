@@ -3,7 +3,7 @@ if [ ! -e "/data/.initialized" ];
 then
     if [ ! -z $NETXMS_GENERATE_SELF_SIGNED ];
     then
-        openssl genrss -out /opt/netxmsd/rootCA.key 2048
+        openssl genrsa -out /opt/netxmsd/rootCA.key 2048
         openssl req -x509 -new -key /tmp/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt
         openssl genrsa -out /opt/netxmsd/server.key 2048
         openssl req -new -key /opt/netxmsd/server.key -out /tmp/server.csr -config /opt/openssl/openssl-default.conf
