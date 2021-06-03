@@ -51,7 +51,7 @@ then
         echo -e "DBPassword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
-	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
+	# echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
 
     echo -e "\nnetxmsd.conf\n"
     cat /opt/netxmsd/netxmsd.conf
