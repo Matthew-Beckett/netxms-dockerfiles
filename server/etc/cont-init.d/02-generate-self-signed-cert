@@ -6,7 +6,7 @@ then
         echo -e "Generating Root CA key"
         openssl genrsa -out /opt/netxmsd/rootCA.key 2048
         echo -e "Generating Root CA"
-        openssl req -x509 -new -key /opt/netxmsd/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt -subj '/C=LV/ST=Selfsigned/L=Selfsigned/O=SelfsignedLtd/CN=netxms.selfsigned.tld'
+        openssl req -x509 -new -key /opt/netxmsd/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt -subj '/C=LV/ST=Selfsigned/L=Selfsigned/O=SelfsignedLtd/CN=CA.selfsigned.tld'
         echo -e "Generating NetXMS Server key"
         openssl genrsa -out /opt/netxmsd/server.key 2048
         echo -e "Generating NetXMS Server CSR"
