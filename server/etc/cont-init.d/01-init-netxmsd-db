@@ -73,8 +73,6 @@ then
         echo "Enabling zoning"
         nxdbmgr -c /opt/netxmsd/netxmsd.conf set EnableZoning 1
     fi
-    
-	touch /data/.initialized
 fi
 
 # Fix SMS kannel Drv
