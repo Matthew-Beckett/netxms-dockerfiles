@@ -8,21 +8,26 @@ then
     
     if [ -v $NETXMS_DB_DRIVER ];
     then
+        echo -e "Setting DB Driver: ${NETXMS_DB_DRIVER}"
         echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr" >> /opt/netxmsd/netxmsd.conf
     else
+        echo -e "Setting DB Driver: sqlite"
         echo -e "DBDriver=sqlite.ddr" >> /opt/netxmsd/netxmsd.conf
         export NETXMS_DB_DRIVER="sqlite"
     fi
     
     if [ -v $NETXMS_DB_NAME ];
     then
+        echo -e "Setting DB Name: ${NETXMS_DB_NAME}"
         echo -e "DBName=${NETXMS_DB_NAME}" >> /opt/netxmsd/netxmsd.conf
     else
         if [ $NETXMS_DB_DRIVER == "sqlite" ];
         then
+            echo -e "Setting DB Name: /data/netxms.db"
             echo -e "DBName=/data/netxms.db" >> /opt/netxmsd/netxmsd.conf
             export NETXMS_DB_NAME="/data/netxms.db"
         else
+            echo -e "Setting DB Name: netxms"
             echo -e "DBName=netxms" >> /opt/netxmsd/netxmsd.conf
             export NETXMS_DB_NAME="netxms"
         fi
@@ -30,16 +35,19 @@ then
 
     if [ -v $NETXMS_DB_SERVER ];
     then
+        echo -e "Setting DB Server: ${NETXMS_DB_SERVER}"
         echo -e "DBServer=${NETXMS_DB_SERVER}" >> /opt/netxmsd/netxmsd.conf
     fi
 
     if [ -v $NETXMS_DB_LOGIN ];
     then
+        echo -e "Setting DB Login: ${NETXMS_DB_LOGIN}"
         echo -e "DBLogin=${NETXMS_DB_LOGIN}" >> /opt/netxmsd/netxmsd.conf
     fi
 
     if [ -v $NETXMS_DB_PASSWORD ];
     then
+        echo -e "Setting DB Server: <obscured>"
         echo -e "DBPasssword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
