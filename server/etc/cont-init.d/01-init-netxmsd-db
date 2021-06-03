@@ -6,7 +6,7 @@ then
 	mkdir -p /opt/netxmsd
 	echo -e "Logfile=/data/netxms.log" >> /opt/netxmsd/netxmsd.conf
     
-    if [ -v $NETXMS_DB_DRIVER ];
+    if [ ! -z "$NETXMS_DB_DRIVER" ];
     then
         echo -e "Setting DB Driver: ${NETXMS_DB_DRIVER}"
         echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr" >> /opt/netxmsd/netxmsd.conf
@@ -16,7 +16,7 @@ then
         export NETXMS_DB_DRIVER="sqlite"
     fi
     
-    if [ -v $NETXMS_DB_NAME ];
+    if [ ! -z "$NETXMS_DB_NAME" ];
     then
         echo -e "Setting DB Name: ${NETXMS_DB_NAME}"
         echo -e "DBName=${NETXMS_DB_NAME}" >> /opt/netxmsd/netxmsd.conf
@@ -33,19 +33,19 @@ then
         fi
     fi
 
-    if [ -v $NETXMS_DB_SERVER ];
+    if [ ! -z "$NETXMS_DB_SERVER" ];
     then
         echo -e "Setting DB Server: ${NETXMS_DB_SERVER}"
         echo -e "DBServer=${NETXMS_DB_SERVER}" >> /opt/netxmsd/netxmsd.conf
     fi
 
-    if [ -v $NETXMS_DB_LOGIN ];
+    if [ ! -z "$NETXMS_DB_LOGIN" ];
     then
         echo -e "Setting DB Login: ${NETXMS_DB_LOGIN}"
         echo -e "DBLogin=${NETXMS_DB_LOGIN}" >> /opt/netxmsd/netxmsd.conf
     fi
 
-    if [ -v $NETXMS_DB_PASSWORD ];
+    if [ ! -z "$NETXMS_DB_PASSWORD" ];
     then
         echo -e "Setting DB Server: <obscured>"
         echo -e "DBPasssword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
@@ -73,7 +73,7 @@ fi
 
 # Fix SMS kannel Drv
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4
-if [ -n "$NETXMS_UNLOCKONSTARTUP" ];
+if [ ! -z "$NETXMS_UNLOCKONSTARTUP" ];
 then
 	echo "Unlocking database"
 	echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
