@@ -48,7 +48,7 @@ then
     if [ ! -z "$NETXMS_DB_PASSWORD" ];
     then
         echo -e "Setting DB Server: <obscured>"
-        echo -e "DBPasssword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
+        echo -e "DBPassword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
     fi
 
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
