@@ -1,3 +1,4 @@
+#!/usr/bin/with-contenv bash
 if [ ! -e "/data/.initialized" ];
 then
     echo -e "Initialization complete, touching /data/.initialized to prevent re-run.\nTo re-initialize the container, delete /data/.initialized"
