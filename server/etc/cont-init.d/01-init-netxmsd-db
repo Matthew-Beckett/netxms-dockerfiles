@@ -1,0 +1,80 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -e "/data/.initialized" ];
+then
+	echo "01-init-netxmsd-db - Generating NetXMS server config file /opt/netxmsd/netxmsd.conf"
+	mkdir -p /opt/netxmsd
+	echo -e "Logfile=/data/netxms.log" >> /opt/netxmsd/netxmsd.conf
+    
+    if [ ! -z "$NETXMS_DB_DRIVER" ];
+    then
+        echo -e "Setting DB Driver: ${NETXMS_DB_DRIVER}"
+        echo -e "DBDriver=${NETXMS_DB_DRIVER}.ddr" >> /opt/netxmsd/netxmsd.conf
+    else
+        echo -e "Setting DB Driver: sqlite"
+        echo -e "DBDriver=sqlite.ddr" >> /opt/netxmsd/netxmsd.conf
+        export NETXMS_DB_DRIVER="sqlite"
+    fi
+    
+    if [ ! -z "$NETXMS_DB_NAME" ];
+    then
+        echo -e "Setting DB Name: ${NETXMS_DB_NAME}"
+        echo -e "DBName=${NETXMS_DB_NAME}" >> /opt/netxmsd/netxmsd.conf
+    else
+        if [ $NETXMS_DB_DRIVER == "sqlite" ];
+        then
+            echo -e "Setting DB Name: /data/netxms.db"
+            echo -e "DBName=/data/netxms.db" >> /opt/netxmsd/netxmsd.conf
+            export NETXMS_DB_NAME="/data/netxms.db"
+        else
+            echo -e "Setting DB Name: netxms"
+            echo -e "DBName=netxms" >> /opt/netxmsd/netxmsd.conf
+            export NETXMS_DB_NAME="netxms"
+        fi
+    fi
+
+    if [ ! -z "$NETXMS_DB_SERVER" ];
+    then
+        echo -e "Setting DB Server: ${NETXMS_DB_SERVER}"
+        echo -e "DBServer=${NETXMS_DB_SERVER}" >> /opt/netxmsd/netxmsd.conf
+    fi
+
+    if [ ! -z "$NETXMS_DB_LOGIN" ];
+    then
+        echo -e "Setting DB Login: ${NETXMS_DB_LOGIN}"
+        echo -e "DBLogin=${NETXMS_DB_LOGIN}" >> /opt/netxmsd/netxmsd.conf
+    fi
+
+    if [ ! -z "$NETXMS_DB_PASSWORD" ];
+    then
+        echo -e "Setting DB Server: <obscured>"
+        echo -e "DBPassword=${NETXMS_DB_PASSWORD}\n" >> /opt/netxmsd/netxmsd.conf
+    fi
+
+	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
+
+    echo -e "\nnetxmsd.conf\n"
+    cat /opt/netxmsd/netxmsd.conf
+
+    if [ $NETXMS_DB_DRIVER == "sqlite" ];
+    then
+        echo "Checking for existing SQLite database and unlocking"
+        if [ -e $NETXMS_DB_NAME ];
+        then
+        	echo "Unlocking database"
+            echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
+        fi
+    fi
+    echo "Initialising the database"
+	nxdbmgr -c /opt/netxmsd/netxmsd.conf init $NETXMS_DB_TYPE
+
+	touch /data/.initialized
+fi
+
+# Fix SMS kannel Drv
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4
+if [ ! -z "$NETXMS_UNLOCKONSTARTUP" ];
+then
+	echo "Unlocking database"
+	echo "Y"|nxdbmgr -c /opt/netxmsd/netxmsd.conf unlock
+fi
