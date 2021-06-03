@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+if [ ! -e "/data/.initialized" ];
+then
+    if [ ! -z $NETXMS_GENERATE_SELF_SIGNED ];
+    then
+        openssl genrss -out /opt/netxmsd/rootCA.key 2048
+        openssl req -x509 -new -key /tmp/rootCA.key -days 10000 -out /opt/netxmsd/rootCA.crt
+        openssl genrsa -out /opt/netxmsd/server.key 2048
+        openssl req -new -key /opt/netxmsd/server.key -out /tmp/server.csr -config /opt/openssl/openssl-default.conf
+        openssl x509 -req -in /tmp/server.csr -CA /opt/netxmsd/rootCA.crt -CAkey /opt/netxmsd/rootCA.key -CAcreateserial -out /opt/netxmsd/server.crt
+
+        echo -e "TrustedCertificate=/opt/netxmsd/rootCA.crt" >> /opt/netxmsd/netxmsd.conf
+        echo -e "ServerCertificate=/opt/netxmsd/server.crt" >> /opt/netxmsd/netxmsd.conf
+        echo -e "ServerCertificateKey=/opt/netxmsd/server.key" >> /opt/netxmsd/netxmsd.conf
+    fi
+fi

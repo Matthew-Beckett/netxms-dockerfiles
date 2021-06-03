@@ -22,6 +22,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     netxms-dbdrv-sqlite3="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
     netxms-dbdrv-pgsql="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
     netxms-dbdrv-mariadb="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
+    openssl \
     && apt-get clean
 
 COPY server/etc /etc
