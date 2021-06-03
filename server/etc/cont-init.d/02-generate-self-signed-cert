@@ -12,7 +12,7 @@ then
         echo -e "Generating NetXMS Server CSR"
         openssl req -new -key /opt/netxmsd/server.key -out /tmp/server.csr -config /opt/openssl/openssl-default.conf
         echo -e "Signing NetXMS Server certificate"
-        openssl x509 -req -in /tmp/server.csr -CA /opt/netxmsd/rootCA.crt -CAkey /opt/netxmsd/rootCA.key -CAcreateserial -out /opt/netxmsd/server.crt
+        openssl x509 -req -in /tmp/server.csr -CA /opt/netxmsd/rootCA.crt -CAkey /opt/netxmsd/rootCA.key -CAcreateserial -out /opt/netxmsd/server.crt -days 5000 -extfile /opt/openssl/openssl-default.conf -extensions v3_ca
 
         echo -e "TrustedCertificate=/opt/netxmsd/rootCA.crt" >> /opt/netxmsd/netxmsd.conf
         echo -e "ServerCertificate=/opt/netxmsd/server.crt" >> /opt/netxmsd/netxmsd.conf
