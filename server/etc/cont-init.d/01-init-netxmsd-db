@@ -53,6 +53,9 @@ then
 
 	echo "$NETXMS_CONFIG" >> /opt/netxmsd/netxmsd.conf
 
+    echo -e "\nnetxmsd.conf\n"
+    cat /opt/netxmsd/netxmsd.conf
+
     if [ $NETXMS_DB_DRIVER == "sqlite" ];
     then
         echo "Checking for existing SQLite database and unlocking"
