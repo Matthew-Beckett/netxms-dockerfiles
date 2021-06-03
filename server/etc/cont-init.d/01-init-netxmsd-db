@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
 
 if [ ! -e "/data/.initialized" ];
 then
