@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bash
+
 if [ ! -e "/data/.initialized" ];
 then
     if [ ! -z $NETXMS_GENERATE_SELF_SIGNED ];

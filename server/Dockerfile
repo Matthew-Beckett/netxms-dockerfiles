@@ -18,7 +18,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     echo "deb http://packages.netxms.org/debian/ buster main" > /etc/apt/sources.list.d/netxms.list && \
     apt-get update && apt-get -y install netxms-base="${MAJOR_VERSION}.${MINOR_VERSION}-1" \ 
     netxms-server="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
-    netxms-agent="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
     netxms-dbdrv-sqlite3="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
     netxms-dbdrv-pgsql="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
     netxms-dbdrv-mariadb="${MAJOR_VERSION}.${MINOR_VERSION}-1" \
@@ -27,5 +26,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 COPY server/etc /etc
 COPY server/opt /opt
+
+COPY server/usr/share/netxms/mibs /usr/share/netxms/mibs
+RUN nxmibc -d /usr/share/netxms/mibs -o /usr/share/netxms/mibs/netxms.mib
 
 ENTRYPOINT ["/init"]
