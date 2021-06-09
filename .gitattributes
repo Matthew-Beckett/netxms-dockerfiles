@@ -1,1 +1,4 @@
-server/etc/cont-init.d/*    eol=lf
+
+*                               text=auto
+*.txt		                    text
+server/etc/cont-init.d/*		text eol=lf
