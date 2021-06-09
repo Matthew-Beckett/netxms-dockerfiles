@@ -1,0 +1,4 @@
+if [ ! -z $NETXMS_COMPILE_MIBS ];
+then
+    nxmibc -d /usr/share/netxms/mibs -o /usr/share/netxms/mibs/netxms.mib
+fi
