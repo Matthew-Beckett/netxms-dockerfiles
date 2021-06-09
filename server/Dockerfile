@@ -28,4 +28,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 COPY server/etc /etc
 COPY server/opt /opt
 
+COPY server/usr/share/netxms/mibs /usr/share/netxms/mibs
+RUN nxmibc -d /usr/share/netxms/mibs -o /usr/share/netxms/mibs/netxms.mib
+
 ENTRYPOINT ["/init"]
