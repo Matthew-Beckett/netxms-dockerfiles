@@ -1,6 +1,6 @@
 # Dockerfile for building NetXMS webui
 
-FROM ghcr.io/matthew-beckett/netxms_webui:3.8.382
+FROM ghcr.io/matthew-beckett/netxms_webui:3.8.405
 MAINTAINER Matt Beckett <matt@beckett.cloud>
 
 ENV MAJOR_VERSION=3.8 MINOR_VERSION=405 NETXMS_SERVER=127.0.0.1 NETXMS_SESSIONTIMEOUT=120 NETXMS_ENABLEADVANCEDSETTINGS=true
