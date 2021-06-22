@@ -1,7 +1,7 @@
 # Dockerfile for building NetXMS server image
 
 FROM debian:buster-slim
-MAINTAINER Matt Beckett <matt@beckett.cloud>
+LABEL org.opencontainers.image.source https://github.com/Matthew-Beckett/netxms-dockerfiles
 ENV MAJOR_VERSION=3.8 MINOR_VERSION=405
 ENV S6_OVERLAY_VERSION=v2.2.0.1 S6_LOGGING=0
 ENV NETXMS_UNLOCKONSTARTUP=1 NETXMS_STARTAGENT=1 NXAGENT_REGISTERSERVER=127.0.0.1

@@ -1,7 +1,7 @@
 # Dockerfile for building NetXMS server image
 
 FROM debian:buster-slim
-MAINTAINER Matt Beckett <matt@beckett.cloud>
+LABEL org.opencontainers.image.source https://github.com/Matthew-Beckett/netxms-dockerfiles
 
 ENV MAJOR_VERSION=3.8 MINOR_VERSION=405
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
