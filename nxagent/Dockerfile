@@ -3,7 +3,7 @@
 FROM debian:buster-slim
 LABEL org.opencontainers.image.source https://github.com/Matthew-Beckett/netxms-dockerfiles
 
-ENV MAJOR_VERSION=3.8 MINOR_VERSION=405
+ENV MAJOR_VERSION=3.9 MINOR_VERSION=156
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update && apt-get -y install curl apt-transport-https gnupg && \
     curl -sL http://packages.netxms.org/netxms.gpg | apt-key add - && \
