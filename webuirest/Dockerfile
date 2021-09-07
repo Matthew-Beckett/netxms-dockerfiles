@@ -1,6 +1,6 @@
 # Dockerfile for building NetXMS webui
 
-FROM ghcr.io/matthew-beckett/netxms_webui:3.9.156
+FROM ghcr.io/matthew-beckett/netxms_webui:3.9.229
 LABEL org.opencontainers.image.source https://github.com/Matthew-Beckett/netxms-dockerfiles
 
 ENV MAJOR_VERSION=3.9 MINOR_VERSION=156 NETXMS_SERVER=127.0.0.1 NETXMS_SESSIONTIMEOUT=120 NETXMS_ENABLEADVANCEDSETTINGS=true
