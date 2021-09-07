@@ -1,6 +1,6 @@
 # Dockerfile for building NetXMS webui
 
-FROM tomcat:10.0-jdk11-openjdk-slim-buster
+FROM tomcat:10.1-jdk11-openjdk-slim-buster
 LABEL org.opencontainers.image.source https://github.com/Matthew-Beckett/netxms-dockerfiles
 
 ENV MAJOR_VERSION=3.9 MINOR_VERSION=229 NETXMS_SERVER=127.0.0.1 NETXMS_SESSIONTIMEOUT=120 NETXMS_ENABLEADVANCEDSETTINGS=true
