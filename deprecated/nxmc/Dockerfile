@@ -1,6 +1,6 @@
 # Dockerfile for building NetXMS Console
 
-FROM debian:jessie
+FROM debian:bullseye
 MAINTAINER Julius Loman <lomo@kyberia.net>
 
 ENV VERSION=2.0.8
